@@ -31,11 +31,11 @@ const SigninComponent = () => {
                             <InputComponent label="Password" type={"password"} placeholder="123456" onChange={(e) => {
                                 setPassword(e.target.value)
                             }} />
-                            <Button text='Login' username={username} password={password} DBcall={handleClick} />
+                            <Button text='Login' DBcall={handleClick} />
                         </div>
                         <div className='mt-5'>
                             <p className='flex gap-2 justify-center text-sm'>
-                                Don't have an account? <Link href='/signup'><button className="flex hover:text-emerald-600 underline">Create one</button></Link>
+                                Don&apos;t have an account? <Link href='/signup'><button className="flex hover:text-emerald-600 underline">Create one</button></Link>
                             </p>
                         </div>
                     </div>

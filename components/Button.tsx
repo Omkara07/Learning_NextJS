@@ -1,11 +1,9 @@
 "use client"
-import axios from "axios"
 import { useRouter } from "next/navigation"
 
-const Button = ({ text, username, password, fullname = "", DBcall }: { text: string, username: string, password: string, fullname?: string, DBcall: () => void }) => {
+const Button = ({ text, DBcall }: { text: string, DBcall: () => void }) => {
     const router = useRouter()
     const handleClick = async () => {
-        console.log(username, password)
         DBcall()
         router.push("/")
     }

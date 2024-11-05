@@ -40,7 +40,7 @@ const SignupComponent = () => {
                             <InputComponent label="Password" type={"password"} placeholder="123456" onChange={(e) => {
                                 setPassword(e.target.value)
                             }} />
-                            <Button text='Login' username={username} password={password} fullname={fullname} DBcall={handleClick} />
+                            <Button text='Login' DBcall={handleClick} />
                         </div>
                         <div className='mt-3'>
                             <p className='flex gap-2 justify-center text-sm'>

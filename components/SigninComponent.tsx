@@ -1,8 +1,19 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import Button from './Button';
 import Link from 'next/link';
+import InputComponent from './InputComponent'
+import axios from 'axios';
 
 const SigninComponent = () => {
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const handleClick = async () => {
+        const res = await axios.get(`http://localhost:3000/api/user?username=${username}`)
+        if (typeof window !== undefined) {
+            localStorage.setItem("user", JSON.stringify(res.data))
+        }
+    }
     return (
         <div className=" flex justify-center flex-col">
             <div className="flex justify-center">
@@ -14,9 +25,13 @@ const SigninComponent = () => {
                             </div>
                         </div>
                         <div className="pt-2">
-                            <LabelledInput label="Username" placeholder="JohnDoe@gmail.com" />
-                            <LabelledInput label="Password" type={"password"} placeholder="123456" />
-                            <Button text='Login' />
+                            <InputComponent label="Username" placeholder="JohnDoe@gmail.com" onChange={(e) => {
+                                setUsername(e.target.value)
+                            }} />
+                            <InputComponent label="Password" type={"password"} placeholder="123456" onChange={(e) => {
+                                setPassword(e.target.value)
+                            }} />
+                            <Button text='Login' username={username} password={password} DBcall={handleClick} />
                         </div>
                         <div className='mt-5'>
                             <p className='flex gap-2 justify-center text-sm'>
@@ -30,18 +45,6 @@ const SigninComponent = () => {
     )
 }
 
+export default SigninComponent;
 
-interface LabelledInputType {
-    label: string;
-    placeholder: string;
-    type?: string;
-}
 
-function LabelledInput({ label, placeholder, type }: LabelledInputType) {
-    return <div>
-        <label className="block mb-2 text-sm text-black font-semibold pt-4">{label}</label>
-        <input type={type || "text"} id="first_name" className="bg-gray-900 text-white border text-sm rounded-lg focus-within:ring-green-700 focus-within:border-green-700 block w-full p-2.5" placeholder={placeholder} required />
-    </div>
-}
-
-export default SigninComponent

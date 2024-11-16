@@ -4,15 +4,13 @@ import Button from './Button';
 import Link from 'next/link';
 import InputComponent from './InputComponent'
 import axios from 'axios';
+import { signin } from '@/app/actions/user';
 
 const SigninComponent = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const handleClick = async () => {
-        const res = await axios.get(`http://localhost:3000/api/user?username=${username}`)
-        if (typeof window !== undefined) {
-            localStorage.setItem("user", JSON.stringify(res.data))
-        }
+        await signin(username, password)
     }
     return (
         <div className=" flex justify-center flex-col">
@@ -34,9 +32,9 @@ const SigninComponent = () => {
                             <Button text='Login' DBcall={handleClick} />
                         </div>
                         <div className='mt-5'>
-                            <p className='flex gap-2 justify-center text-sm'>
+                            <div className='flex gap-2 justify-center text-sm'>
                                 Don&apos;t have an account? <Link href='/signup'><button className="flex hover:text-emerald-600 underline">Create one</button></Link>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>

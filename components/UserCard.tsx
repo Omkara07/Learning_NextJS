@@ -1,23 +1,27 @@
-"use client"
 import React, { useEffect, useState } from 'react'
+import { PrismaClient } from '@prisma/client';
+import client from '@/db'
 
 type userType = {
     name: string
     email: string
     success: boolean
 }
-const UserCard = () => {
-    const [userData, setUserData] = useState<userType | null>(null)
-    useEffect(() => {
-        try {
-            const userr = localStorage.getItem("user")
-            if (userr) {
-                const u = JSON.parse(userr)
-                setUserData(u)
-            }
-        } catch (error) { console.log(error) }
-
-    }, [])
+const fetchUser = async () => {
+    try {
+        const user = await client.user.findFirst({})
+        return {
+            email: user?.username,
+            name: user?.fullname,
+            success: true
+        }
+    }
+    catch (e) {
+        console.log(e)
+    }
+}
+const UserCard = async () => {
+    const userData = await fetchUser()
     return (
         <div className="p-8 rounded font-bold">
             {

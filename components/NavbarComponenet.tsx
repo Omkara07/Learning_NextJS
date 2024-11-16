@@ -7,6 +7,7 @@ const NavbarComponenet = () => {
             <Link href='/'><h1 className="pl-8 flex group duration-300">N<span className='text-emerald-600'>e</span>xtL<span className='text-emerald-600'>e</span>v</h1></Link>
             <div className="flex gap-6 text-sm">
                 <Link href='/signin'> <button className="flex hover:text-emerald-600 duration-150">Login</button></Link>
+                <Link href='/signup'> <button className="flex hover:text-white text-emerald-600 duration-150">Signup</button></Link>
             </div>
         </div>
 

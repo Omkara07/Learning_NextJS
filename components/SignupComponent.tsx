@@ -4,6 +4,7 @@ import Button from './Button';
 import Link from 'next/link';
 import InputComponent from './InputComponent';
 import axios from 'axios';
+import { signup } from '@/app/actions/user';
 
 
 const SignupComponent = () => {
@@ -11,14 +12,7 @@ const SignupComponent = () => {
     const [password, setPassword] = useState<string>("");
     const [fullname, setFullname] = useState<string>("");
     const handleClick = async () => {
-        const res = await axios.post("http://localhost:3000/api/user", {
-            username,
-            password,
-            fullname
-        })
-        if (typeof window !== undefined) {
-            localStorage.setItem("user", JSON.stringify(res.data))
-        }
+        await signup(username, password, fullname)
     }
     return (
         <div className=" flex justify-center flex-col">
@@ -40,12 +34,12 @@ const SignupComponent = () => {
                             <InputComponent label="Password" type={"password"} placeholder="123456" onChange={(e) => {
                                 setPassword(e.target.value)
                             }} />
-                            <Button text='Login' DBcall={handleClick} />
+                            <Button text='Signup' DBcall={handleClick} />
                         </div>
                         <div className='mt-3'>
-                            <p className='flex gap-2 justify-center text-sm'>
+                            <div className='flex gap-2 justify-center text-sm'>
                                 Already a user? <Link href='/signin'><button className="flex hover:text-emerald-600 underline">Login</button></Link>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>

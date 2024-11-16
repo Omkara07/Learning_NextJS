@@ -9,7 +9,7 @@ type userType = {
 }
 const fetchUser = async () => {
     try {
-        const user = await client.user.findFirst({})
+        const user = await client.user.findUnique({ where: { username: "omkara007@gmail.com" } })
         return {
             email: user?.username,
             name: user?.fullname,

@@ -14,7 +14,17 @@ const SignupComponent = () => {
     const [fullname, setFullname] = useState<string>("");
     const router = useRouter()
     const handleClick = async () => {
-        await signup(username, password, fullname)
+        const user = await signup(username, password, fullname)
+        const res = await signIn("credentials", {
+            username: username,
+            password: password,
+            callbackUrl: '/',
+        });
+        if (res?.ok) {
+            router.push('/')
+            console.log(res)
+        }
+        else console.log("error")
     }
     const handleGoogleAuth = async () => {
         const res = await signIn("google", { callbackUrl: '/' });

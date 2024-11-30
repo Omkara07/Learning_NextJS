@@ -25,7 +25,7 @@ const SnowfallCanvas = () => {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
                 this.radius = Math.random() * 2 + 0.5;
-                this.speed = Math.random() * 1 + 0.5;
+                this.speed = 0.4 * 1;
                 this.wind = Math.random() * 1 - 0.5;
             }
 

@@ -3,9 +3,10 @@
 // shows how to use the get, post methods inside the router in nextJS
 
 import { NextRequest, NextResponse } from 'next/server';
-import client from '@/db'
+import { prisma as client } from '@/db'
 import { getServerSession } from 'next-auth';
 import { NEXT_AUTH_CONFIG } from '../lib/auth';
+import { signIn } from 'next-auth/react';
 
 export async function GET(req: NextRequest) {
     const session = await getServerSession(NEXT_AUTH_CONFIG)
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
                 fullname
             }
         })
+
         return NextResponse.json({ email: user.username, name: user.fullname, success: true })
     }
     catch (e: any) {

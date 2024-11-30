@@ -1,14 +1,14 @@
 "use client"
 import { useRouter } from "next/navigation"
+import React from "react"
 
-const Button = ({ text, DBcall }: { text: string, DBcall: () => void }) => {
-    const router = useRouter()
-    const handleClick = async () => {
-        DBcall()
-        router.push("/")
+const Button = ({ text, handler, bg_color, text_color }: { text: string, handler: () => Promise<any>, bg_color?: string, text_color?: string }) => {
+    const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        await handler()
     }
     return (
-        <button onClick={handleClick} type="button" className="mt-8 w-full text-black bg-white focus:ring-4 focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">{text}</button>
+        <button onClick={handleClick} type="button" className={`flex py-2 mb-4 px-5 rounded-lg ${text_color ? text_color : 'text-black'} w-full font-semibold text-center justify-center ${bg_color ? bg_color : "bg-white"} `}>{text}</button>
     )
 }
 

@@ -1,25 +1,26 @@
+// session/login management without Next-Auth
+
 // shows how to use the get, post methods inside the router in nextJS
 
 import { NextRequest, NextResponse } from 'next/server';
 import client from '@/db'
+import { getServerSession } from 'next-auth';
+import { NEXT_AUTH_CONFIG } from '../lib/auth';
 
 export async function GET(req: NextRequest) {
-    const { searchParams } = new URL(req.url);
-    const username = searchParams.get('username');
+    const session = await getServerSession(NEXT_AUTH_CONFIG)
     try {
-        console.log(username)
-        if (username) {
-            const user = await client.user.findUnique({
-                where: {
-                    username
-                }
-            })
+        // console.log(username)
+        if (session) {
             return NextResponse.json({
-                email: user?.username,
-                name: user?.fullname,
+                session,
                 success: true
             })
         }
+        return NextResponse.json({
+            success: false
+        })
+
     }
     catch (e: any) {
         return NextResponse.json({ success: false, message: e.message })

@@ -1,5 +1,7 @@
 "use server"
+// without using next-auth (for traditional login) . It is still used for signup
 // this marks the component as a server action
+// create a server action whenever a func is going to be used by frontend and backend both
 import client from '@/db'
 
 

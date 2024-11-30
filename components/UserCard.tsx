@@ -1,39 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { PrismaClient } from '@prisma/client';
-import client from '@/db'
+import React from 'react'
+import { getServerSession } from 'next-auth';
+import { NEXT_AUTH_CONFIG } from '@/app/api/lib/auth';
 
-type userType = {
-    name: string
-    email: string
-    success: boolean
-}
-const fetchUser = async () => {
-    try {
-        const user = await client.user.findUnique({ where: { username: "omkara007@gmail.com" } })
-        return {
-            email: user?.username,
-            name: user?.fullname,
-            success: true
-        }
-    }
-    catch (e) {
-        console.log(e)
-    }
-}
 const UserCard = async () => {
-    const userData = await fetchUser()
+    const session = await getServerSession(NEXT_AUTH_CONFIG)
+    const userData = session?.user
+    console.log(session)
     return (
-        <div className="p-8 rounded font-bold">
+        <div className="p-8 rounded font-bold w-full">
             {
                 !userData ?
                     <div>Login for Anni</div>
                     :
                     <div className='text-sm'>
-                        <div className='text-6xl font-mono font-bold mb-5'>
-                            {userData?.name}
+                        <div className='md:text-6xl text-3xl font-mono font-bold mb-5'>
+                            {userData.name}
                         </div>
 
-                        {userData?.email}
+                        {userData.email}
                     </div>
             }
         </div>

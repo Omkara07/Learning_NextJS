@@ -33,7 +33,9 @@ export default function RootLayout({
       >
         <SnowfallCanvas />
         <Provider>
-          <NavbarComponenet />
+          <div className="flex justify-center">
+            <NavbarComponenet />
+          </div>
           <div className="pt-14">
             {children}
           </div>
